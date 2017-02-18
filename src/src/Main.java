@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -6,11 +7,12 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    FileUtils fileUtils = new FileUtils();
+    private final AnchorPane root = new AnchorPane();
+    private Graphics gui = new Graphics();
 
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Launcher");
-        fileUtils.listDirectory("C:\\Games");
+        primaryStage.setScene(gui.createGui(root));
         primaryStage.show();
     }
 

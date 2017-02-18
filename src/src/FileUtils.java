@@ -12,8 +12,9 @@ import java.util.List;
  */
 public class FileUtils {
 
-    public List<File> directoryFile = new ArrayList<>();
-    public List<File> runFile = new ArrayList<>();
+
+    private List<File> directoryFile = new ArrayList<>();
+    private List<File> runFile = new ArrayList<>();
 
     public void listDirectory(String path) {
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(path))) {
@@ -47,10 +48,20 @@ public class FileUtils {
                         System.out.println(entry.toFile());
                     }
                 }
+
                 stream.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        System.out.println();
+    }
+
+    public List<File> getDirectoryFile() {
+        return directoryFile;
+    }
+
+    public List<File> getRunFile() {
+        return runFile;
     }
 }
