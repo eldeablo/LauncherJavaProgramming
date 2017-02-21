@@ -42,22 +42,6 @@ public class RunButton extends Button {
         return runnable;
     }
 
-    public int getX() {
-        return X;
-    }
-
-    public int getY() {
-        return Y;
-    }
-
-    public void setX(int x) {
-        X = x;
-    }
-
-    public void setY(int y) {
-        Y = y;
-    }
-
     public String getName() {
         return name;
     }
