@@ -1,11 +1,11 @@
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by Bad on 16.02.2017.
@@ -13,10 +13,53 @@ import java.util.List;
 public class FileUtils {
 
 
-    private List<File> directoryFile = new ArrayList<>();
     private List<File> runFile = new ArrayList<>();
 
-    public void listDirectory(String path) {
+    private String[] filterFile = {"unins000", "uninstall", "Launcher", "launcher", "CrashReporter","language"};
+    private String[] filterDirectory = {"CommonRedist", "Redist", "Diag", "Soft", "steam","Engine"};
+
+    public void listFile(String path) {
+        try (Stream<Path> stream = Files.walk(Paths.get(path))) {
+            stream.forEach(listFile -> {
+                if (listFile.toFile().getName().endsWith(".exe")) {
+                    if(filterFile(listFile.toFile().getName(),listFile.toFile().getPath())){
+                        runFile.add(listFile.toFile());
+                    }
+                }
+
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean filterFile(String name, String directory) {
+        if(blackFilterFile(name) && blackFilterDirectory(directory)){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean blackFilterFile(String name) {
+        for (String blackFilterFile : filterFile) {
+            if (name.contains(blackFilterFile)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean blackFilterDirectory(String directory) {
+        for (String blackFilterDirectory : filterDirectory) {
+            if (directory.contains(blackFilterDirectory)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //Старый код работы с файломы
+    /*public void listDirectory(String path) {
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(path))) {
             for (Path entry : stream) {
                 System.out.println(entry.toFile());
@@ -63,5 +106,5 @@ public class FileUtils {
 
     public List<File> getRunFile() {
         return runFile;
-    }
+    }*/
 }
