@@ -1,4 +1,6 @@
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseButton;
 
 import java.io.IOException;
 
@@ -13,38 +15,25 @@ public class RunButton extends Button {
     private int Height;
     private int Weight;
 
-    private int X;
-    private int Y;
 
-    public RunButton(String runnablePath, String name, int height, int weight, int x, int y) {
+    public RunButton(String runnablePath, String name, int height, int weight) {
         this.runnable = runnablePath;
         this.Height = height;
         this.Weight = weight;
-        this.X = x;
-        this.Y = y;
         this.name = name;
 
-
-        System.out.println(runnablePath);
-
-
         setPrefSize(weight, height);
-        setLayoutX(x);
-        setLayoutY(y);
         setText(name);
-
-        if (getX() >= 500) {
-            setLayoutX(14);
-            setLayoutY(y + 120);
-
-        }
+        setAlignment(Pos.CENTER);
 
         setOnMouseClicked(Event -> {
-            Runtime runtime = Runtime.getRuntime();
-            try {
-                runtime.exec(runnablePath);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(Event.getButton() == MouseButton.PRIMARY){
+                Runtime runtime = Runtime.getRuntime();
+                try {
+                    runtime.exec(runnablePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -61,11 +50,17 @@ public class RunButton extends Button {
         return Y;
     }
 
+    public void setX(int x) {
+        X = x;
+    }
+
+    public void setY(int y) {
+        Y = y;
+    }
 
     public String getName() {
         return name;
     }
-
 
     public int getHeights(){
         return Height;

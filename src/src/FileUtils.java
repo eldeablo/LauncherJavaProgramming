@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,13 +13,12 @@ import java.util.stream.Stream;
  */
 public class FileUtils {
 
-
     private List<File> runFile = new ArrayList<>();
 
     private String[] filterFile = {"unins000", "uninstall", "Launcher", "launcher", "CrashReporter","language"};
     private String[] filterDirectory = {"CommonRedist", "Redist", "Diag", "Soft", "steam","Engine"};
 
-    public void listFile(String path) {
+    public void listFile(String path)throws AccessDeniedException {
         try (Stream<Path> stream = Files.walk(Paths.get(path))) {
             stream.forEach(listFile -> {
                 if (listFile.toFile().getName().endsWith(".exe")) {
@@ -56,6 +56,10 @@ public class FileUtils {
             }
         }
         return true;
+    }
+
+    public List<File> getRunFile() {
+        return runFile;
     }
 
     //Старый код работы с файломы
