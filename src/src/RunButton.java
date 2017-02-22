@@ -10,17 +10,19 @@ import java.io.IOException;
 public class RunButton extends Button {
 
     private String runnable;
+    private String uninstall;
     private String name;
 
     private int Height;
     private int Weight;
 
 
-    public RunButton(String runnablePath, String name, int height, int weight) {
+    public RunButton(String runnablePath, String uninstall, String name, int height, int weight) {
         this.runnable = runnablePath;
         this.Height = height;
         this.Weight = weight;
         this.name = name;
+        this.uninstall = uninstall;
 
         setPrefSize(weight, height);
         setText(name);

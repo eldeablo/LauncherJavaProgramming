@@ -25,7 +25,7 @@ public class Graphics {
     public Scene createGui(AnchorPane root) {
         init();
         try {
-            fileUtils.listFile("C:\\Program Files (x86)");
+            fileUtils.listFile("C:\\Games");
         } catch (AccessDeniedException e) {
             e.printStackTrace();
         }
@@ -47,11 +47,10 @@ public class Graphics {
             row += 1;
             col = 0;
         }
-        else {
-            System.out.println(col);
-        }
-        gridPane.addColumn(col,
-                new RunButton(fileUtils.getRunFile().get(i).getPath(), fileUtils.getRunFile().get(i).getName(), 70,
+        gridPane.addColumn(
+                col,
+                new RunButton(fileUtils.getRunFile().get(i).getPath(), fileUtils.getUninstallFile().get(i).getPath(),
+                        fileUtils.getRunFile().get(i).getName(), 70,
                         70));
 
         GridPane.setHalignment(gridPane.getChildren().get(i + 1), HPos.CENTER);

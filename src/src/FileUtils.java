@@ -14,19 +14,20 @@ import java.util.stream.Stream;
 public class FileUtils {
 
     private List<File> runFile = new ArrayList<>();
+    private List<File> uninstallFile = new ArrayList<>();
 
-    private String[] filterFile = {"unins000", "uninstall", "Launcher", "launcher", "CrashReporter","language"};
-    private String[] filterDirectory = {"CommonRedist", "Redist", "Diag", "Soft", "steam","Engine"};
+    private String[] filterFile = {"Launcher", "launcher", "CrashReporter", "language"};
+    private String[] filterDirectory = {"CommonRedist", "Redist", "Diag", "Soft", "steam", "Engine", "Paragon"};
 
-    public void listFile(String path)throws AccessDeniedException {
+    public void listFile(String path) throws AccessDeniedException {
         try (Stream<Path> stream = Files.walk(Paths.get(path))) {
             stream.forEach(listFile -> {
                 if (listFile.toFile().getName().endsWith(".exe")) {
-                    if(filterFile(listFile.toFile().getName(),listFile.toFile().getPath())){
+                    if (filterFile(listFile.toFile().getName(), listFile.toFile().getPath()) && addUninstallFile(
+                            listFile.toFile())) {
                         runFile.add(listFile.toFile());
                     }
                 }
-
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,10 +35,20 @@ public class FileUtils {
     }
 
     private boolean filterFile(String name, String directory) {
-        if(blackFilterFile(name) && blackFilterDirectory(directory)){
+        if (blackFilterFile(name) && blackFilterDirectory(directory)) {
             return true;
         }
         return false;
+    }
+
+    private boolean addUninstallFile(File file) {
+        if (file.getName().contains("uninstall") || file.getName().contains("unins000")) {
+            if (file.isFile()) {
+                uninstallFile.add(file);
+            }
+            return false;
+        }
+        return true;
     }
 
     private boolean blackFilterFile(String name) {
@@ -60,6 +71,10 @@ public class FileUtils {
 
     public List<File> getRunFile() {
         return runFile;
+    }
+
+    public List<File> getUninstallFile() {
+        return uninstallFile;
     }
 
     //Старый код работы с файломы
