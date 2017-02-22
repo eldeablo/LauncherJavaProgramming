@@ -25,6 +25,7 @@ public class FileUtils {
                 if (listFile.toFile().getName().endsWith(".exe")) {
                     if (filterFile(listFile.toFile().getName(), listFile.toFile().getPath()) && addUninstallFile(
                             listFile.toFile())) {
+
                         runFile.add(listFile.toFile());
                     }
                 }

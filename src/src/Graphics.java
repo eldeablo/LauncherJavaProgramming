@@ -31,7 +31,6 @@ public class Graphics {
         }
 
         for (int i = 0; i < fileUtils.getRunFile().size(); i++) {
-
             addGripPane(i);
         }
 
