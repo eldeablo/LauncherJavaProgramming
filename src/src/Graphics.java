@@ -1,13 +1,9 @@
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-
-import java.nio.file.AccessDeniedException;
 
 /**
  * Created by Bad on 18.02.2017.
@@ -24,11 +20,8 @@ public class Graphics {
 
     public Scene createGui(AnchorPane root) {
         init();
-        try {
-            fileUtils.listFile("C:\\Games");
-        } catch (AccessDeniedException e) {
-            e.printStackTrace();
-        }
+
+        fileUtils.listFile("C:\\Games");
 
         for (int i = 0; i < fileUtils.getRunFile().size(); i++) {
             addGripPane(i);
@@ -40,22 +33,17 @@ public class Graphics {
     }
 
     private void addGripPane(int i) {
-
         if (col >= 4) {
             gridPane.getRowConstraints().add(row, new RowConstraints(120));
             row += 1;
             col = 0;
         }
-        gridPane.addColumn(
-                col,
-                new RunButton(fileUtils.getRunFile().get(i).getPath(), fileUtils.getUninstallFile().get(i).getPath(),
-                        fileUtils.getRunFile().get(i).getName(), 70,
-                        70));
 
-        GridPane.setHalignment(gridPane.getChildren().get(i + 1), HPos.CENTER);
-        GridPane.setValignment(gridPane.getChildren().get(i + 1), VPos.CENTER);
+        gridPane.add(new CardRunFile(gridPane, fileUtils.getRunFile().get(i).getPath(),
+                fileUtils.getUninstallFile().get(i).getPath(), fileUtils.getRunFile().get(i).getName(), 70, 70,row,col),col,row);
 
         col += 1;
+
     }
 
     public void init() {
@@ -68,11 +56,11 @@ public class Graphics {
         gridPane.setPrefSize(600, 400);
         gridPane.setHgap(20);
         gridPane.setVgap(20);
-        gridPane.setGridLinesVisible(true);
+        //gridPane.setGridLinesVisible(true);
 
         scrollPaneGrid.setPrefSize(600, 400);
+        scrollPaneGrid.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPaneGrid.fitToWidthProperty().setValue(true);
-
         scrollPaneGrid.setContent(gridPane);
 
     }

@@ -19,13 +19,12 @@ public class FileUtils {
     private String[] filterFile = {"Launcher", "launcher", "CrashReporter", "language"};
     private String[] filterDirectory = {"CommonRedist", "Redist", "Diag", "Soft", "steam", "Engine", "Paragon"};
 
-    public void listFile(String path) throws AccessDeniedException {
+    public void listFile(String path){
         try (Stream<Path> stream = Files.walk(Paths.get(path))) {
             stream.forEach(listFile -> {
                 if (listFile.toFile().getName().endsWith(".exe")) {
                     if (filterFile(listFile.toFile().getName(), listFile.toFile().getPath()) && addUninstallFile(
                             listFile.toFile())) {
-
                         runFile.add(listFile.toFile());
                     }
                 }
