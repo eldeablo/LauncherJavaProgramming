@@ -3,6 +3,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 
@@ -21,8 +22,9 @@ public class CardRunFile extends Button {
     private int Weight;
 
     private Label label = new Label();
+    private ImageView imageView = new ImageView();
 
-    public CardRunFile(GridPane pane, String run, String delete, String name, int height, int weight,int row,int col) {
+    public CardRunFile(GridPane pane, String run, String delete, String name, int height, int weight, int row, int col) {
         this.runnable = run;
         this.uninstall = delete;
         this.Height = height;
@@ -31,7 +33,7 @@ public class CardRunFile extends Button {
 
         setPrefSize(Weight, Height);
 
-        label.setPadding(new Insets(0,0,5,0));
+        label.setPadding(new Insets(0, 0, 5, 0));
         label.setText(name);
 
         GridPane.setHalignment(this, HPos.CENTER);
@@ -52,6 +54,8 @@ public class CardRunFile extends Button {
                 }
             }
         });
+
+        getChildren().add(imageView);
     }
 
     public String getRunnable() {
