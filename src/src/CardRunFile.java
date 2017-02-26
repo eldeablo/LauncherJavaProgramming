@@ -1,5 +1,3 @@
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -53,7 +51,7 @@ public class CardRunFile extends Button {
                 runnableFile(run);
             }
             else if (event.getButton() == MouseButton.SECONDARY) {
-                menuContext.showMenu(this,event);
+                menuContext.showMenu(this, event);
             }
         });
 
@@ -68,7 +66,7 @@ public class CardRunFile extends Button {
         getChildren().add(imageView);
     }
 
-    public void runnableFile(String exe){
+    public void runnableFile(String exe) {
         try {
             Runtime runtime = Runtime.getRuntime();
             runtime.exec("cmd /c \"" + exe + "\"");
@@ -77,7 +75,7 @@ public class CardRunFile extends Button {
         }
     }
 
-    public void deleteFile(String delete){
+    public void deleteFile(String delete) {
         try {
             Runtime runtime = Runtime.getRuntime();
             runtime.exec("cmd /c \"" + delete + "\"");
