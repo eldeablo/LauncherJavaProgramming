@@ -23,6 +23,7 @@ public class CardRunFile extends Button {
 
     private Label label = new Label();
     private ImageView imageView = new ImageView();
+    private PopupMenu popupMenu = new PopupMenu();
 
     public CardRunFile(GridPane pane, String run, String delete, String name, int height, int weight, int row, int col) {
         this.runnable = run;
@@ -53,6 +54,15 @@ public class CardRunFile extends Button {
                     e.printStackTrace();
                 }
             }
+        });
+
+        setOnMouseEntered(event -> {
+            popupMenu.showEntered(this,event,name);
+        });
+
+        setOnMouseExited(event -> {
+            popupMenu.hide();
+            popupMenu.removeAll();
         });
 
         getChildren().add(imageView);

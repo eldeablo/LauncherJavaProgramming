@@ -1,5 +1,4 @@
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -24,9 +23,10 @@ public class ImageButton extends ImageView {
         VBox.setMargin(this, insets);
 
         setOnMouseEntered(event -> {
-            popupMenu.show(this, event.getScreenX(), event.getScreenY() + 20);
+            popupMenu.showEntered(this, event, name);
         });
         setOnMouseExited(event -> {
+            popupMenu.removeAll();
             popupMenu.hide();
         });
     }
