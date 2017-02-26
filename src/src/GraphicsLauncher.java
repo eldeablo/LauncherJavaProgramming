@@ -7,7 +7,7 @@ import javafx.scene.layout.*;
 /**
  * Created by Bad on 18.02.2017.
  */
-public class Graphics {
+public class GraphicsLauncher {
 
     private AnchorPane root = new AnchorPane();
     private VBox vboxImage = new VBox();

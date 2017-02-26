@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private final AnchorPane root = new AnchorPane();
-    private Graphics gui = new Graphics();
+    private GraphicsLauncher gui = new GraphicsLauncher();
 
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Launcher");

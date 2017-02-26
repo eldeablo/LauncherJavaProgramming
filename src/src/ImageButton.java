@@ -1,6 +1,7 @@
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 
@@ -9,6 +10,7 @@ import javafx.scene.layout.VBox;
  */
 public class ImageButton extends ImageView {
     private String name;
+    private boolean isShow = false;
 
     public ImageButton(String image, Insets insets, String name) {
         this.name = name;
@@ -34,6 +36,9 @@ public class ImageButton extends ImageView {
                     System.exit(1);
                     break;
                 case "Setting":
+                    if(!isShow){
+                        isShow = true;
+                    }
                     break;
                 case "Help":
                     break;

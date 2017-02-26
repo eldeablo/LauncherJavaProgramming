@@ -24,7 +24,8 @@ public class CardRunFile extends Button {
     private Label label = new Label();
     private ImageView imageView = new ImageView();
 
-    private MenuContext menuContext = new MenuContext(this);
+    private MenuContext menuOption = new MenuContext(this,true);
+    private MenuContext menuName = new MenuContext(this,false);
 
     public CardRunFile(GridPane pane, String run, String delete, String name, int height, int weight, int row, int col) {
         this.runnable = run;
@@ -33,7 +34,7 @@ public class CardRunFile extends Button {
         this.Weight = weight;
         this.name = name;
 
-        setContextMenu(menuContext);
+        setContextMenu(menuOption);
         setPrefSize(Weight, Height);
         label.setPadding(new Insets(0, 0, 5, 0));
         label.setText(name);
@@ -51,16 +52,16 @@ public class CardRunFile extends Button {
                 runnableFile(run);
             }
             else if (event.getButton() == MouseButton.SECONDARY) {
-                menuContext.showMenu(this, event);
+                menuOption.showMenu(this, event);
             }
         });
 
         setOnMouseEntered(event -> {
-
+            menuName.showName(this,event,name);
         });
 
         setOnMouseExited(event -> {
-
+            menuName.hide();
         });
 
         getChildren().add(imageView);
@@ -83,7 +84,6 @@ public class CardRunFile extends Button {
             e.printStackTrace();
         }
     }
-
 
     public String getRunnable() {
         return runnable;
