@@ -45,14 +45,17 @@ public class CardRunFile extends Button {
         GridPane.setHalignment(label, HPos.CENTER);
         GridPane.setValignment(label, VPos.BOTTOM);
 
-        setOnMouseClicked(Event -> {
-            if (Event.getButton() == MouseButton.PRIMARY) {
+        setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
                 try {
                     Runtime runtime = Runtime.getRuntime();
                     runtime.exec("cmd /c \"" + runnable + "\"");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }else if(event.getButton() == MouseButton.SECONDARY){
+                popupMenu.removeAll();
+                popupMenu.hide();
             }
         });
 
