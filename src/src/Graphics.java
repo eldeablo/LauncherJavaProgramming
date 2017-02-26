@@ -42,11 +42,11 @@ public class Graphics {
         scrollPaneGrid.setBackground(Background.EMPTY);
 
         vboxImage.setLayoutX(1);
-        vboxImage.setPrefSize(40,400);
+        vboxImage.setPrefSize(40, 400);
         vboxImage.setPadding(new Insets(199, 0, 0, 0));
-        vboxImage.getChildren().add(new ImageButton("resource/help.png", new Insets(0, 0, 0, 0),"Help"));
-        vboxImage.getChildren().add(new ImageButton("resource/settings.png", new Insets(0, 0, 0, 0),"Setting"));
-        vboxImage.getChildren().add(new ImageButton("resource/exit.png", new Insets(80, 0, 0, 0),"Exit"));
+        vboxImage.getChildren().add(new ImageButton("resource/help.png", new Insets(0, 0, 0, 0), "Help"));
+        vboxImage.getChildren().add(new ImageButton("resource/settings.png", new Insets(0, 0, 0, 0), "Setting"));
+        vboxImage.getChildren().add(new ImageButton("resource/exit.png", new Insets(80, 0, 0, 0), "Exit"));
 
         fileUtils.listFile("C:\\Games");
 

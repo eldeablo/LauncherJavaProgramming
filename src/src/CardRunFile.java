@@ -1,3 +1,5 @@
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -23,7 +25,6 @@ public class CardRunFile extends Button {
 
     private Label label = new Label();
     private ImageView imageView = new ImageView();
-    private PopupMenu popupMenu = new PopupMenu();
 
     public CardRunFile(GridPane pane, String run, String delete, String name, int height, int weight, int row, int col) {
         this.runnable = run;
@@ -33,53 +34,42 @@ public class CardRunFile extends Button {
         this.name = name;
 
         setPrefSize(Weight, Height);
-
         label.setPadding(new Insets(0, 0, 5, 0));
         label.setText(name);
 
         GridPane.setHalignment(this, HPos.CENTER);
         GridPane.setValignment(this, VPos.CENTER);
 
-        pane.add(label,col,row);
+        pane.add(label, col, row);
 
         GridPane.setHalignment(label, HPos.CENTER);
         GridPane.setValignment(label, VPos.BOTTOM);
 
         setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
-                try {
-                    Runtime runtime = Runtime.getRuntime();
-                    runtime.exec("cmd /c \"" + runnable + "\"");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }else if(event.getButton() == MouseButton.SECONDARY){
-                popupMenu.removeAll();
-                popupMenu.hide();
+                runnableFile();
+            }
+            else if (event.getButton() == MouseButton.SECONDARY) {
+
             }
         });
 
         setOnMouseEntered(event -> {
-            popupMenu.showEntered(this,event,name);
         });
 
         setOnMouseExited(event -> {
-            popupMenu.hide();
-            popupMenu.removeAll();
+
         });
 
         getChildren().add(imageView);
     }
 
-    public String getRunnable() {
-        return runnable;
-    }
-
-    public String getUninstall() {
-        return uninstall;
-    }
-
-    public String getName() {
-        return name;
+    public void runnableFile(){
+        try {
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("cmd /c \"" + runnable + "\"");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

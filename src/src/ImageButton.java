@@ -3,13 +3,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+
 /**
- * Created by Bad on 26.02.2017.
+ * Created by Bad on 26.02.2017
  */
 public class ImageButton extends ImageView {
-
     private String name;
-    PopupMenu popupMenu = new PopupMenu();
 
     public ImageButton(String image, Insets insets, String name) {
         this.name = name;
@@ -23,12 +22,24 @@ public class ImageButton extends ImageView {
         VBox.setMargin(this, insets);
 
         setOnMouseEntered(event -> {
-            popupMenu.showEntered(this, event, name);
+
         });
+
         setOnMouseExited(event -> {
-            popupMenu.removeAll();
-            popupMenu.hide();
         });
+
+        setOnMouseClicked(event -> {
+            switch (name) {
+                case "Exit":
+                    System.exit(1);
+                    break;
+                case "Setting":
+                    break;
+                case "Help":
+                    break;
+            }
+        });
+
     }
 
     public String getName() {
