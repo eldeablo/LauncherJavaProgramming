@@ -25,6 +25,7 @@ public class CardRunFile extends Button {
 
     private Label label = new Label();
     private ImageView imageView = new ImageView();
+
     private MenuContext menuContext = new MenuContext(this);
 
     public CardRunFile(GridPane pane, String run, String delete, String name, int height, int weight, int row, int col) {
@@ -49,7 +50,7 @@ public class CardRunFile extends Button {
 
         setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
-                runnableFile();
+                runnableFile(run);
             }
             else if (event.getButton() == MouseButton.SECONDARY) {
                 menuContext.showMenu(this,event);
@@ -57,6 +58,7 @@ public class CardRunFile extends Button {
         });
 
         setOnMouseEntered(event -> {
+
         });
 
         setOnMouseExited(event -> {
@@ -66,12 +68,30 @@ public class CardRunFile extends Button {
         getChildren().add(imageView);
     }
 
-    public void runnableFile(){
+    public void runnableFile(String exe){
         try {
             Runtime runtime = Runtime.getRuntime();
-            runtime.exec("cmd /c \"" + runnable + "\"");
+            runtime.exec("cmd /c \"" + exe + "\"");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void deleteFile(String delete){
+        try {
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("cmd /c \"" + delete + "\"");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public String getRunnable() {
+        return runnable;
+    }
+
+    public String getUninstall() {
+        return uninstall;
     }
 }
