@@ -24,8 +24,8 @@ public class CardRunFile extends Button {
     private Label label = new Label();
     private ImageView imageView = new ImageView();
 
-    private MenuContext menuOption = new MenuContext(this,true);
-    private MenuContext menuName = new MenuContext(this,false);
+    private MenuContext menuOption = new MenuContext(this,false);
+    private MenuContext menuName = new MenuContext(this,true);
 
     public CardRunFile(GridPane pane, String run, String delete, String name, int height, int weight, int row, int col) {
         this.runnable = run;

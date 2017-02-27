@@ -1,10 +1,10 @@
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Stream;
 
 /**
@@ -16,20 +16,30 @@ public class FileUtils {
     private List<File> uninstallFile = new ArrayList<>();
 
     private String[] filterFile = {"Launcher", "launcher", "CrashReporter", "language"};
-    private String[] filterDirectory = {"CommonRedist", "Redist", "Diag", "Soft", "steam", "Engine", "Paragon"};
+    private String[] filterDirectory = {"CommonRedist", "Redist", "Diag", "Soft", "steam", "Engine", "Paragon","Google"};
+
+    private File iniFile = new File("config.properties");
+    private Properties properties = new Properties();
+
+    public FileUtils(){
+
+    }
 
     public void listFile(String path) {
-        try (Stream<Path> stream = Files.walk(Paths.get(path))) {
-            stream.forEach(listFile -> {
-                if (listFile.toFile().getName().endsWith(".exe")) {
-                    if ((filterFile(listFile.toFile().getName(), listFile.toFile().getPath())) && addUninstallFile(
-                            listFile.toFile())) {
-                        addFile(listFile.toFile());
+        if(path != null){
+            try (Stream<Path> stream = Files.walk(Paths.get(path))) {
+                stream.forEach(listFile -> {
+                    if (listFile.toFile().getName().endsWith(".exe")) {
+                        if ((filterFile(listFile.toFile().getName(), listFile.toFile().getPath())) && addUninstallFile(
+                                listFile.toFile())) {
+                            addFile(listFile.toFile());
+
+                        }
                     }
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -66,6 +76,43 @@ public class FileUtils {
             }
         }
         return true;
+    }
+
+    private void isIniFile() {
+        if(iniFile.exists()){
+            System.out.println("Файл найден!!!");
+        }else{
+            try {
+                iniFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public void SaveIniFile(String key,String text,String comments){
+        isIniFile();
+        try {
+            FileOutputStream outputStream = new FileOutputStream(iniFile);
+            properties.setProperty(key,text);
+            properties.store(outputStream,comments);
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String LoadIniFile(String key){
+        isIniFile();
+        try {
+            FileInputStream inputStream = new FileInputStream(iniFile);
+            properties.load(inputStream);
+            return properties.getProperty(key);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public void addFile(File file) {

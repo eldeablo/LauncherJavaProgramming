@@ -20,6 +20,8 @@ public class GraphicsLauncher {
 
     private FileUtils fileUtils = new FileUtils();
 
+    private GraphicsSettings graphicsSettings = new GraphicsSettings(fileUtils,this);
+
     public Scene createGui(AnchorPane root) {
         this.root = root;
 
@@ -44,15 +46,13 @@ public class GraphicsLauncher {
         vboxImage.setLayoutX(1);
         vboxImage.setPrefSize(40, 400);
         vboxImage.setPadding(new Insets(199, 0, 0, 0));
-        vboxImage.getChildren().add(new ImageButton("resource/help.png", new Insets(0, 0, 0, 0), "Help"));
-        vboxImage.getChildren().add(new ImageButton("resource/settings.png", new Insets(0, 0, 0, 0), "Setting"));
-        vboxImage.getChildren().add(new ImageButton("resource/exit.png", new Insets(80, 0, 0, 0), "Exit"));
+        vboxImage.getChildren().add(new ImageButton(graphicsSettings,"resource/help.png", new Insets(0, 0, 0, 0), "Help"));
+        vboxImage.getChildren().add(new ImageButton(graphicsSettings,"resource/settings.png", new Insets(0, 0, 0, 0), "Setting"));
+        vboxImage.getChildren().add(new ImageButton(graphicsSettings,"resource/exit.png", new Insets(80, 0, 0, 0), "Exit"));
 
-        fileUtils.listFile("C:\\Games");
+        fileUtils.listFile(fileUtils.LoadIniFile("SaveFile"));
 
-        for (int i = 0; i < fileUtils.getRunFile().size(); i++) {
-            addGripPane(i);
-        }
+        update();
 
         root.getChildren().add(scrollPaneGrid);
         root.getChildren().add(vboxImage);
@@ -73,5 +73,11 @@ public class GraphicsLauncher {
 
         col += 1;
 
+    }
+
+    public void update(){
+        for (int i = 0; i < fileUtils.getRunFile().size(); i++) {
+            addGripPane(i);
+        }
     }
 }

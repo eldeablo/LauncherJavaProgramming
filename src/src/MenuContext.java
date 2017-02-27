@@ -16,7 +16,7 @@ public class MenuContext extends ContextMenu {
 
     public MenuContext(CardRunFile cardRunFile, boolean isName) {
         this.cardRunFile = cardRunFile;
-        if (isName) {
+        if (!isName) {
             addItemAll(run, delete);
         }
         else {

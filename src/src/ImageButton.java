@@ -1,7 +1,6 @@
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 
@@ -10,10 +9,11 @@ import javafx.scene.layout.VBox;
  */
 public class ImageButton extends ImageView {
     private String name;
-    private boolean isShow = false;
+    private GraphicsSettings graphicsSettings;
 
-    public ImageButton(String image, Insets insets, String name) {
+    public ImageButton(GraphicsSettings graphicsSettings,String image, Insets insets, String name) {
         this.name = name;
+        this.graphicsSettings = graphicsSettings;
 
         setImage(new Image(image));
         setPreserveRatio(false);
@@ -28,6 +28,7 @@ public class ImageButton extends ImageView {
         });
 
         setOnMouseExited(event -> {
+
         });
 
         setOnMouseClicked(event -> {
@@ -36,9 +37,7 @@ public class ImageButton extends ImageView {
                     System.exit(1);
                     break;
                 case "Setting":
-                    if(!isShow){
-                        isShow = true;
-                    }
+                    graphicsSettings.show();
                     break;
                 case "Help":
                     break;
